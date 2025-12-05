@@ -56,6 +56,7 @@ public class Main extends Canvas implements Runnable{
 
     public void tick(){
         
+        
     }
 
     public void render(){
