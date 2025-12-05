@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public abstract class Entity {
+import com.pots.utils.ObjectHandler;
+
+
+public abstract class Entity implements ObjectHandler{
 
     private int x, y, width, height;
 
@@ -17,12 +20,19 @@ public abstract class Entity {
         this.height = height;
     }
 
+    public Entity(){
+        this.x = 0;
+        this.y = 0;
+        this.width = 100;
+        this.height = 30;
+    }
+
     public void tick(){
         
     }
 
-    public void render(Graphics g, int color){
-        g.setColor(new Color(color));
+    public void render(Graphics g, Color color){
+        g.setColor(color);
         g.fillRect(x, y, width, height);
     }
 

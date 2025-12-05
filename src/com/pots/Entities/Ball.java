@@ -1,40 +1,35 @@
 package com.pots.Entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import java.util.Random;
 
 import com.pots.utils.Hitbox;
 
-public class Ball {
+public class Ball extends Entity {
 
     private int x, y, size;
 
     private Hitbox hb;
 
     private double speed;
-    
-    
-    public Ball(int x, int y, int size){
+
+    public Ball(int x, int y, int size) {
         this.x = x;
         this.y = y;
         this.size = size;
         hb = new Hitbox(x, y, size);
-        
+
     }
 
-    public Ball(int size){
+    public Ball(int size) {
         x = 0;
         y = 0;
         this.size = size;
     }
 
-
-    public void tick(){
-
-    }
-
-    public void render(Graphics g){
+    public void tick() {
         Random rand = new Random();
 
         int angulo = rand.nextInt(90);
@@ -42,15 +37,11 @@ public class Ball {
         double sin = Math.sin(anguloRad);
         double cos = Math.cos(anguloRad);
 
-        x+=speed*sin;
-        y+=speed*cos;
-
-    
-
-        
-
+        x += speed * sin;
+        y += speed * cos;
 
     }
+
 
     public int getX() {
         return x;
@@ -76,6 +67,4 @@ public class Ball {
         this.speed = speed;
     }
 
-    
-    
 }

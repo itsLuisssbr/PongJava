@@ -4,10 +4,19 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.List;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 
 import javax.swing.JFrame;
+
+import com.pots.Entities.Ball;
+import com.pots.Entities.Enemy;
+import com.pots.Entities.Player;
+import com.pots.utils.KeyboardReader;
+import com.pots.utils.ObjectHandler;
 
 
 
@@ -18,12 +27,27 @@ public class Main extends Canvas implements Runnable{
 
     public static final int SCALE = 1;
 
+    public static KeyboardReader tecla;
+
     public BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private boolean isRunning;
+
+    ArrayList<ObjectHandler> objetos = new ArrayList<ObjectHandler>();
 
 
     public Main(){
         JFRameInit();
+
+        tecla = new KeyboardReader();
+        this.addKeyListener(tecla);
+
+        Player player = new Player(0, 0, 100, 20);
+        Enemy enemy = new Enemy(400, 400, 100, 20);
+        Ball ball = new Ball(10);
+
+        objetos.add(player);
+        objetos.add(enemy);
+        objetos.add(ball);
     }
 
     public void JFRameInit(){
@@ -56,7 +80,10 @@ public class Main extends Canvas implements Runnable{
 
     public void tick(){
         
-        
+        for (int i = 0; i < objetos.size(); i++){
+            objetos.get(i).tick();
+        }
+
     }
 
     public void render(){
@@ -69,20 +96,26 @@ public class Main extends Canvas implements Runnable{
 
         Graphics g = image.getGraphics();
 
-        g.setColor(Color.white);
+        g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-
+        
+        for(int i = 0; i < objetos.size(); i++){
+            objetos.get(i).render(g, Color.white);
+        }
+        
 
         
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, null);
         bs.show();
+
+
     }
 
     @Override
     public void run() {
-
+        requestFocus();
         while(isRunning){
             tick();
             render();
